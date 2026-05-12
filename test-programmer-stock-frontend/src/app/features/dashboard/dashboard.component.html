@@ -1,0 +1,180 @@
+<div *ngIf="loading" style="display: flex; justify-content: center; padding: 60px">
+  <div
+    class="spinner-border text-primary"
+    style="width: 28px; height: 28px; border-width: 2px"
+  ></div>
+</div>
+
+<ng-container *ngIf="!loading && data">
+  <div class="section-label">Ringkasan Barang & Stok</div>
+  <div class="stat-grid stat-grid-3 mb-20">
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="bi bi-box-seam"></i></div>
+      <div>
+        <div class="stat-label">Total Barang</div>
+        <div class="stat-value">{{ data.ringkasan_barang.total }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+      <div>
+        <div class="stat-label">Barang Aktif</div>
+        <div class="stat-value">{{ data.ringkasan_barang.aktif }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon purple"><i class="bi bi-slash-circle"></i></div>
+      <div>
+        <div class="stat-label">Barang Nonaktif</div>
+        <div class="stat-value">{{ data.ringkasan_barang.nonaktif }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="bi bi-archive"></i></div>
+      <div>
+        <div class="stat-label">Total Stok</div>
+        <div class="stat-value">{{ data.ringkasan_stok.total_stok | number }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="bi bi-exclamation-triangle"></i></div>
+      <div>
+        <div class="stat-label">Stok Menipis</div>
+        <div class="stat-value">{{ data.ringkasan_stok.stok_menipis }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red"><i class="bi bi-x-circle"></i></div>
+      <div>
+        <div class="stat-label">Stok Habis</div>
+        <div class="stat-value">{{ data.ringkasan_stok.stok_habis }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Ringkasan Transaksi</div>
+  <div class="stat-grid stat-grid-3 mb-20">
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="bi bi-receipt"></i></div>
+      <div>
+        <div class="stat-label">Total Transaksi</div>
+        <div class="stat-value">{{ data.ringkasan_transaksi.total | number }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="bi bi-calendar-check"></i></div>
+      <div>
+        <div class="stat-label">Transaksi Hari Ini</div>
+        <div class="stat-value">{{ data.ringkasan_transaksi.hari_ini }}</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="bi bi-arrow-right-circle"></i></div>
+      <div>
+        <div class="stat-label">Transaksi Bulan Ini</div>
+        <div class="stat-value">{{ data.ringkasan_transaksi.bulan_ini }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-row">
+    <!-- Transaksi Terbaru -->
+    <div class="card dashboard-col-main">
+      <div class="card-header">
+        <h5>Transaksi Terbaru</h5>
+        <a
+          routerLink="/transaksi-keluar"
+          style="font-size: 12.5px; color: var(--primary); font-weight: 500; text-decoration: none"
+        >
+          Lihat semua →
+        </a>
+      </div>
+      <div style="overflow-x: auto">
+        <table class="table-clean">
+          <thead>
+            <tr>
+              <th>No. Transaksi</th>
+              <th>Tanggal</th>
+              <th>Keperluan</th>
+              <th>Oleh</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of data.transaksi_terbaru">
+              <td>
+                <span style="font-family: monospace; font-size: 12.5px; color: var(--primary)">
+                  {{ t.no_transaksi }}
+                </span>
+              </td>
+              <td style="color: var(--text-muted)">{{ t.tanggal | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ t.keperluan }}</td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 6px">
+                  <div class="avatar" style="width: 22px; height: 22px; font-size: 10px">
+                    {{ t.user?.name?.charAt(0) }}
+                  </div>
+                  <span style="font-size: 13px">{{ t.user?.name }}</span>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="data.transaksi_terbaru.length === 0">
+              <td colspan="4" style="text-align: center; color: var(--text-muted); padding: 32px">
+                Belum ada transaksi
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card dashboard-col-side" style="align-self: start">
+      <div class="card-header">
+        <h5>Stok Menipis</h5>
+        <span class="badge-pill badge-danger">{{ data.barang_menipis.length }}</span>
+      </div>
+      <div class="card-body" style="padding: 12px 16px">
+        <div
+          *ngIf="data.barang_menipis.length === 0"
+          style="text-align: center; color: var(--text-muted); padding: 20px 0; font-size: 13px"
+        >
+          ✓ Semua stok aman
+        </div>
+
+        <div *ngFor="let s of data.barang_menipis" style="margin-bottom: 14px">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 5px;
+            "
+          >
+            <span style="font-size: 13px; font-weight: 500">{{ s.barang?.nama_barang }}</span>
+            <span class="badge-pill" [ngClass]="s.stok === 0 ? 'badge-danger' : 'badge-warning'">
+              {{ s.stok }} {{ s.barang?.satuan }}
+            </span>
+          </div>
+          <div class="stok-bar-wrap">
+            <div class="stok-bar">
+              <div
+                class="stok-bar-fill"
+                [ngClass]="s.stok === 0 ? 'critical' : 'low'"
+                [style.width]="getStokPercent(s) + '%'"
+              ></div>
+            </div>
+            <span style="font-size: 11px; color: var(--text-muted); white-space: nowrap">
+              min {{ s.stok_minimum }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

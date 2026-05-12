@@ -1,0 +1,70 @@
+<div class="login-page">
+  <div class="login-card">
+    <h1 style="font-size: 20px; font-weight: 600; margin-bottom: 4px">Selamat datang</h1>
+    <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px">
+      Masuk ke Sistem Inventory
+    </p>
+
+    <div *ngIf="errorMsg" class="alert-custom danger">
+      <i class="bi bi-exclamation-circle-fill"></i>
+      <span>{{ errorMsg }}</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div style="margin-bottom: 14px">
+        <label class="form-label-custom">Email</label>
+        <input
+          type="email"
+          class="form-input"
+          placeholder="admin@gmail.com"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+
+      <div style="margin-bottom: 22px">
+        <label class="form-label-custom">Password</label>
+
+        <div style="position: relative">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            class="form-input"
+            placeholder="••••••••"
+            [(ngModel)]="password"
+            name="password"
+            required
+            style="padding-right: 42px"
+          />
+
+          <button
+            type="button"
+            (click)="showPassword = !showPassword"
+            style="
+              position: absolute;
+              right: 12px;
+              top: 50%;
+              transform: translateY(-50%);
+              border: none;
+              background: transparent;
+              cursor: pointer;
+              color: var(--text-muted);
+            "
+          >
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary-custom"
+        style="width: 100%; justify-content: center; padding: 11px"
+        [disabled]="loading"
+      >
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        {{ loading ? 'Memproses...' : 'Masuk' }}
+      </button>
+    </form>
+  </div>
+</div>
