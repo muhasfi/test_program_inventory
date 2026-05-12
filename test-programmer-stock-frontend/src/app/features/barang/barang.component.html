@@ -49,27 +49,16 @@
         <tr *ngFor="let b of barangList; let i = index">
           <td style="color: var(--text-muted)">{{ i + 1 }}</td>
           <td>
-            <span
-              style="
-                font-family: monospace;
-                font-size: 12.5px;
-                background: var(--surface-2);
-                padding: 2px 8px;
-                border-radius: 5px;
-                color: var(--primary);
-              "
-            >
-              {{ b.kode_barang }}
-            </span>
+            {{ b.kode_barang }}
           </td>
-          <td style="font-weight: 500">{{ b.nama_barang }}</td>
-          <td style="color: var(--text-muted)">{{ b.satuan }}</td>
+          <td>{{ b.nama_barang }}</td>
+          <td>{{ b.satuan }}</td>
           <td>
             <span class="badge-pill" [ngClass]="getStokBadgeClass(b)">
               {{ b.stok_gudang?.stok ?? 0 }}
             </span>
           </td>
-          <td style="color: var(--text-muted)">{{ b.stok_gudang?.stok_minimum ?? 0 }}</td>
+          <td>{{ b.stok_gudang?.stok_minimum ?? 0 }}</td>
           <td>
             <span class="badge-pill" [ngClass]="b.is_active ? 'badge-success' : 'badge-gray'">
               {{ b.is_active ? 'Aktif' : 'Non-aktif' }}

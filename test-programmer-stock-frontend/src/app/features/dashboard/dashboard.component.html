@@ -85,7 +85,6 @@
   </div>
 
   <div class="dashboard-row">
-    <!-- Transaksi Terbaru -->
     <div class="card dashboard-col-main">
       <div class="card-header">
         <h5>Transaksi Terbaru</h5>
@@ -109,18 +108,16 @@
           <tbody>
             <tr *ngFor="let t of data.transaksi_terbaru">
               <td>
-                <span style="font-family: monospace; font-size: 12.5px; color: var(--primary)">
-                  {{ t.no_transaksi }}
-                </span>
+                {{ t.no_transaksi }}
               </td>
-              <td style="color: var(--text-muted)">{{ t.tanggal | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ t.tanggal | date: 'dd/MM/yyyy' }}</td>
               <td>{{ t.keperluan }}</td>
               <td>
                 <div style="display: flex; align-items: center; gap: 6px">
-                  <div class="avatar" style="width: 22px; height: 22px; font-size: 10px">
+                  <div class="avatar" style="width: 22px; height: 22px">
                     {{ t.user?.name?.charAt(0) }}
                   </div>
-                  <span style="font-size: 13px">{{ t.user?.name }}</span>
+                  {{ t.user?.name }}
                 </div>
               </td>
             </tr>

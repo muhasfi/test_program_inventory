@@ -65,38 +65,18 @@
         <tr *ngFor="let t of transaksiList; let i = index">
           <td style="color: var(--text-muted)">{{ i + 1 }}</td>
           <td>
-            <span
-              style="
-                font-family: monospace;
-                font-size: 12.5px;
-                background: var(--primary-light);
-                padding: 2px 8px;
-                border-radius: 5px;
-                color: var(--primary);
-                font-weight: 600;
-              "
-            >
-              {{ t.no_transaksi }}
-            </span>
+            {{ t.no_transaksi }}
           </td>
-          <td style="color: var(--text-muted)">{{ t.tanggal | date: 'dd MMM yyyy' }}</td>
-          <td
-            style="
-              font-weight: 500;
-              max-width: 200px;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            "
-          >
+          <td>{{ t.tanggal | date: 'dd MMM yyyy' }}</td>
+          <td>
             {{ t.keperluan }}
           </td>
           <td>
-            <span class="badge-pill badge-info">{{ t.details?.length ?? '—' }} item</span>
+            <span>{{ t.details?.length ?? '—' }} item</span>
           </td>
           <td>
             <div style="display: flex; align-items: center; gap: 6px">
-              <div class="avatar" style="width: 24px; height: 24px; font-size: 10px">
+              <div class="avatar" style="width: 24px; height: 24px">
                 {{ t.user?.name?.charAt(0) }}
               </div>
               <span style="font-size: 13px">{{ t.user?.name }}</span>
