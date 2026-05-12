@@ -390,7 +390,7 @@
             <td>
               <span class="badge-pill badge-info">{{ d.jumlah }} {{ d.barang?.satuan }}</span>
             </td>
-            <td style="color: var(--text-muted)">{{ d.stok_sebelum }}</td>
+            <td>{{ d.stok_sebelum }}</td>
             <td [style.color]="d.stok_sesudah === 0 ? 'var(--danger)' : 'var(--text-main)'">
               {{ d.stok_sesudah }}
             </td>
